@@ -6,7 +6,6 @@ import click
 
 from .utility import read_urls, read_features
 
-
 __version__ = "0.1.0"
 
 @click.command()
@@ -18,9 +17,9 @@ __version__ = "0.1.0"
 def main(urls, features):
     config = configparser.ConfigParser()
     config.read(os.getcwd()+'\config\example.ini')
-    PATTERNS = {}
+    patterns = {}
     for key, value in config['type regex patterns'].items():
-        PATTERNS[key] = re.compile(value)
+        patterns[key] = re.compile(value)
 
-
+    print(read_features(features, patterns))
     print(read_urls(urls))
