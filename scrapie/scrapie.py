@@ -4,17 +4,18 @@ import os
 
 import click
 
-from .utility import read_urls
+from .utility import read_urls, read_features
 
 
-__version__ = "0.2.0"
+__version__ = "0.1.0"
 
 @click.command()
 #@click.option('--urls', default=1, help='')
 #@click.option('--n', prompt='', help='T')
 #f = Feature('div', {'class':'updListPrice'}, 'float', True)
 @click.argument('urls', type=click.Path(exists=True))
-def main(urls):
+@click.argument('features', type=click.Path(exists=True))
+def main(urls, features):
     config = configparser.ConfigParser()
     config.read(os.getcwd()+'\config\example.ini')
     PATTERNS = {}
