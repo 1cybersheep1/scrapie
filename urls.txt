@@ -1,3 +1,2 @@
-https://www.continente.pt/stores/continente/pt-pt/public/Pages/ProductDetail.aspx?ProductId=6716189
-https://www.continente.pt/stores/continente/pt-pt/public/Pages/ProductDetail.aspx?ProductId=5095297
-dsds
+https://www.example.com/1
+https://www.example.com/2

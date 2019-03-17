@@ -1,26 +1,31 @@
-import requests
 import re
+import requests
 
 from bs4 import BeautifulSoup
 
 
-class Page:
-    def __init__(self, url, timeout=5):
-        try:
-            # Make the request
-            response = requests.get(url, timeout=timeout)
-            # Check status code
-            assert response.status_code == 200, response.status_code  
-            self.content = BeautifulSoup(response.content, "html.parser")     
-            # If the request timed out print a warning
-        except requests.Timeout as e:
-            print("Timeout")  
-            print(str(e))
-        except Exception as e:
-            print("Error")
-            print(str(e))
+def get_page_content(url, timeout=5):
+    try:
+        # Make the request
+        response = requests.get(url, stream=True,timeout=timeout)
+        # Check status code
+        if response.status_code != 200:
+            raise Exception(response.status_code) 
             
-    def extract_feature(self, feature):
-        tag_content = self.content.find(feature.tag, feature.attributes).text
-        values = re.findall(feature.pattern, tag_content)
-        return ', '.join(values) if feature.multiple_values else values[0]
+        return BeautifulSoup(response.content, "html.parser")
+        # If the request timed out print a warning
+    except requests.Timeout:
+        print('Timeout')
+        return ''
+    except:
+        print("Error")
+        return ''
+        
+    
+def extract_features(page_content, features):
+    extracted_features = []
+    for feature in features:
+        tag_content = page_content.select(feature.selector)[0].text
+        values = re.findall(feature.pattern, tag_content)    
+        extracted_features.append(', '.join(values) if feature.multiple_values else values[0])
+    return extracted_features

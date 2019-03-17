@@ -1,1 +1,0 @@
-Price: float, single, div, class=updListPrice, id=98
