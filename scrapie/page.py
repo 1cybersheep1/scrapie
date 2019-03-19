@@ -10,22 +10,20 @@ def get_page_content(url, timeout=5):
         response = requests.get(url, stream=True,timeout=timeout)
         # Check status code
         if response.status_code != 200:
-            raise Exception(response.status_code) 
-            
+            raise Exception(response.status_code)
         return BeautifulSoup(response.content, "html.parser")
         # If the request timed out print a warning
     except requests.Timeout:
-        print('Timeout')
-        return ''
+        raise Exception('Timeout')
     except:
-        print("Error")
-        return ''
-        
+        raise Exception('Error')
     
+
 def extract_features(page_content, features):
     extracted_features = []
     for feature in features:
-        tag_content = page_content.select(feature.selector)[0].text
-        values = re.findall(feature.pattern, tag_content)    
+        tag_content = page_content.select(feature.selector)
+        text = tag_content[0].text if tag_content else ''
+        values = re.findall(feature.pattern, text)
         extracted_features.append(', '.join(values) if feature.multiple_values else values[0])
     return extracted_features

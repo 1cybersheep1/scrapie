@@ -15,7 +15,7 @@ version = re.search(
 
 #with open("README.rst", "rb") as f:
 #    long_descr = f.read().decode("utf-8")
-  
+
 setup(
     name = "scrapie",
     packages = ["scrapie"],
@@ -30,7 +30,8 @@ setup(
     install_requires=[
             'click',
             'validators',
-            'bs4'
+            'bs4',
+            'pyfiglet'
     ],
     include_package_data=True,
     zip_safe=True,

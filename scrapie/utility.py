@@ -33,7 +33,7 @@ def read_features(file):
     data.read(file)
     for feature_name in data.sections():
         try:
-            features.append(Feature(feature_name, 
+            features.append(Feature(feature_name,
                                     data[feature_name]['selector'],
                                     data[feature_name]['type'],
                                     data[feature_name]['quantity'],
